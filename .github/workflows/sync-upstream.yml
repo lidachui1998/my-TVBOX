@@ -1,0 +1,85 @@
+name: 自动同步上游仓库
+
+on:
+  schedule:
+    # 每天凌晨2点自动执行
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    # 允许手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+    
+    - name: 配置Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+    
+    - name: 添加上游仓库
+      run: |
+        # 添加上游仓库
+        git remote add upstream https://github.com/chendi0207/my-TVBOX.git
+        git fetch upstream
+    
+    - name: 备份本地仓.txt文件
+      run: |
+        if [ -f "本地仓.txt" ]; then
+          cp "本地仓.txt" "/tmp/本地仓.txt.backup"
+          echo "已备份本地仓.txt文件"
+        else
+          echo "本地仓.txt文件不存在"
+        fi
+    
+    - name: 合并上游更新
+      run: |
+        git checkout main
+        git merge upstream/main --no-edit || {
+          echo "合并冲突，尝试解决..."
+          # 如果有冲突，优先保留我们的本地仓.txt文件
+          if [ -f "本地仓.txt" ] && git status --porcelain | grep "本地仓.txt"; then
+            git checkout --ours "本地仓.txt"
+            git add "本地仓.txt"
+          fi
+          # 对于其他冲突文件，接受上游版本
+          git status --porcelain | grep "^UU" | cut -c4- | while read file; do
+            if [ "$file" != "本地仓.txt" ]; then
+              git checkout --theirs "$file"
+              git add "$file"
+            fi
+          done
+          git commit -m "解决合并冲突，保留本地仓.txt文件"
+        }
+    
+    - name: 恢复本地仓.txt文件
+      run: |
+        if [ -f "/tmp/本地仓.txt.backup" ]; then
+          cp "/tmp/本地仓.txt.backup" "本地仓.txt"
+          git add "本地仓.txt"
+          if ! git diff --cached --quiet; then
+            git commit -m "恢复本地仓.txt文件的自定义内容"
+          fi
+          echo "已恢复本地仓.txt文件"
+        fi
+    
+    - name: 推送更新
+      run: |
+        git push origin main
+        echo "同步完成！"
+    
+    - name: 检查同步结果
+      run: |
+        echo "=== 同步结果 ==="
+        git log --oneline -5
+        if [ -f "本地仓.txt" ]; then
+          echo "本地仓.txt文件已保留"
+        else
+          echo "警告：本地仓.txt文件丢失"
+        fi
