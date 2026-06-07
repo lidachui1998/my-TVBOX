@@ -6,13 +6,9 @@
 
 { "url": "https://ghfast.top/https://raw.githubusercontent.com/chendi0207/my-TVBOX/main/tvboxqq/王二小/api.json", "name": "王二小" },
 
-{ "url": "https://ghfast.top/https://raw.githubusercontent.com/chendi0207/my-TVBOX/main/tvboxqq/OK/api.json", "name": "OK" },
-
-{ "url": "https://ghfast.top/https://raw.githubusercontent.com/chendi0207/my-TVBOX/main/tvboxqq/巧技/api.json", "name": "巧技" },
+{ "url": "https://ghfast.top/https://raw.githubusercontent.com/chendi0207/my-TVBOX/main/tvboxqq/摸鱼儿/api.json", "name": "摸鱼儿" },
 
 { "url": "https://ghfast.top/https://raw.githubusercontent.com/chendi0207/my-TVBOX/main/tvboxqq/潇洒/api.json", "name": "潇洒" },
-
-{ "url": "https://ghfast.top/https://raw.githubusercontent.com/chendi0207/my-TVBOX/main/tvboxqq/摸鱼儿/api.json", "name": "摸鱼儿" },
 
 { "url": "https://ghfast.top/https://raw.githubusercontent.com/chendi0207/my-TVBOX/main/tvboxqq/小虎斑/api.json", "name": "小虎斑" },
 
@@ -24,6 +20,4 @@
 
 { "url": "https://ghfast.top/https://raw.githubusercontent.com/chendi0207/my-TVBOX/main/tvboxqq/少儿频道/api.json", "name": "少儿频道" },
 
-{ "url": "https://ghfast.top/https://raw.githubusercontent.com/chendi0207/my-TVBOX/main/tvboxqq/戏曲音乐/api.json", "name": "戏曲音乐" },
-
-{ "url": "https://ghfast.top/https://raw.githubusercontent.com/chendi0207/my-TVBOX/refs/heads/main/tvboxqq/OK/api.json", "name": "OK" }]}
+{ "url": "https://ghfast.top/https://raw.githubusercontent.com/chendi0207/my-TVBOX/main/tvboxqq/戏曲音乐/api.json", "name": "戏曲音乐" }]}
